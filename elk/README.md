@@ -1,20 +1,16 @@
 # ELK
 
-## Deployment
+## Deploy
 
-The recommendation is to use a dedicated Kubernetes namespace
-
-    kubectl create namespace elk
-    kubectl config set-context elk --cluster=kubernetes --user=kubernetes-admin --namespace=elk
-    kubectl config use-context elk
+Must be used in the 'default' namespace.
+The current Logstash configuration is expecting logstash-forwarder to be its log input 
+and the certificates provided are valid only for `logstash.default.svc.cluster.local`.
 
 ### Elasticsearch
 
     kubectl create -f es-discovery-svc.yaml
     kubectl create -f es-svc.yaml
     kubectl create -f es-master.yaml
-
-    kubectl create -f es-data.yaml
 
 ### Kibana
 
@@ -28,14 +24,7 @@ The recommendation is to use a dedicated Kubernetes namespace
 
 ## Tear Down
 
-If the ELK cluster is deployed in a dedicated namespace, then the simples way to tear down ELK is to delete a namespace:
-
-    kubectl delete namespace elk
-    kubectl config use-context kubernetes-admin@kubernetes
-
-Otherwise, you can delete all the ELK resources:
-
     kubectl delete svc elasticsearch elasticsearch-discovery kibana logstash
     kubectl delete rc logstash
-    kubectl delete deployment es-data es-master kibana
+    kubectl delete deployment es-master kibana
 

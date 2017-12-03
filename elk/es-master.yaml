@@ -46,20 +46,29 @@ spec:
         - name: NODE_MASTER
           value: "true"
         - name: NODE_INGEST
-          value: "false"
+          value: "true"
         - name: NODE_DATA
-          value: "false"
+          value: "true"
         - name: HTTP_ENABLE
-          value: "false"
+          value: "true"
         - name: "ES_JAVA_OPTS"
           value: "-Xms256m -Xmx256m"
         ports:
+        - containerPort: 9200
+          name: http
+          protocol: TCP
         - containerPort: 9300
           name: transport
           protocol: TCP
         livenessProbe:
           tcpSocket:
             port: 9300
+        readinessProbe:
+          httpGet:
+            path: /_cluster/health
+            port: 9200
+          initialDelaySeconds: 20
+          timeoutSeconds: 5
         volumeMounts:
         - name: storage
           mountPath: /data
