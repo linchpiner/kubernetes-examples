@@ -16,7 +16,6 @@ spec:
         component: elk
         role: logstash
     spec:
-      serviceAccount: elk
       containers:
       - name: logstash
         image: pires/logstash
