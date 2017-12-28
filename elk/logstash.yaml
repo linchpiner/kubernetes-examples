@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: logstash
-        image: pires/logstash
+        image: quay.io/pires/docker-logstash:5.1.2
         env:
         - name: KUBERNETES_TRUST_CERT
           value: "true"
