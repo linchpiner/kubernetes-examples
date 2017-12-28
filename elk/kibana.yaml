@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: kibana
-        image: cfontes/kibana-xpack-less:5.5.0
+        image: cfontes/kibana-xpack-less:5.5.1
         env:
         - name: "CLUSTER_NAME"
           value: "myesdb"
